@@ -17,5 +17,7 @@ app.context.render = co.wrap(render({
   ext: 'html'
   }));
   app.use(serve(CONFIG.get('staticDir')));
-app.listen(CONFIG.get('port'));
+app.listen(CONFIG.get('port'),() => {
+    console.log(new Date(), 'server running http://127.0.0.1:3000')
+});
 export default app
