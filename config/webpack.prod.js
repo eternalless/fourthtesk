@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const LiveReloadPlugin = require('webpack-livereload-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 module.exports = {
     entry: {
@@ -10,11 +11,13 @@ module.exports = {
             path.join(__dirname, '../src/public/scripts/indexadd.es6')
         ],
         tag: [
-            path.join(__dirname, '../src/public/scripts/tag.es6')
+            path.join(__dirname, '../src/public/scripts/tag.es6'),
+          path.join(__dirname, '../src/public/scripts/star.es6')
         ]
     },
     output: {
         filename: 'public/scripts/[name]-[hash:5].js',
+      publicPath: 'http://192.168.0.130:3000/',
         path: path.join(__dirname, '../build/')
     },
     module: {
@@ -61,5 +64,32 @@ module.exports = {
             name: 'vendor',
             filename: 'public/scripts/common/vendor-[hash:5].min.js',
           }),
+      new HtmlWebpackPlugin({  // Also generate a test.html
+        filename: './views/layout.html',
+        template: 'src/widget/layout.html',
+        inject:false
+      }),
+      new HtmlWebpackPlugin({  // Also generate a test.html
+        filename: './views/index.html',
+        template: 'src/views/index.js',
+        inject:false,
+        chunks:['vendor','index','tag']
+      }),
+      new HtmlWebpackPlugin({  // Also generate a test.html
+        filename: './widget/index.html',
+        template: 'src/widget/index.html',
+        inject:false
+      }),
+      new HtmlWebpackPlugin({  // Also generate a test.html
+        filename: './views/star.html',
+        template: 'src/views/star.js',
+        inject:false,
+        chunks:['vendor','index','tag']
+      }),
+      new HtmlWebpackPlugin({  // Also generate a test.html
+        filename: './widget/star.html',
+        template: 'src/widget/star.html',
+        inject:false
+      }),
     ]
 };

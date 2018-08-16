@@ -35,6 +35,11 @@ const indexController={
                 })
             }
         }
-    }
+    },
+  adv(){
+        return async (ctx, next) => {
+            ctx.body = '<div style="height: 200px;background-color:red;">一段段时间的</div>'
+        }
+  }
 }
 export default indexController

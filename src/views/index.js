@@ -8,7 +8,29 @@ module.exports=function(templateParams){
               "{% endblock %}"+
               "{% block content %}{% include '../widget/index.html' %}{% endblock %}"+
               "{% block script %}"+
-              webAssetsHelp.scripts+
+              //webAssetsHelp.scripts+
+      '<script>'+
+      '(function() {'+
+      'var scriptsshow=['+webAssetsHelp.scriptsshow+'];'+
+      'for(let i = 0; i<scriptsshow.length;i++){'+
+      'let a=scriptsshow[i];' +
+      'if (localStorage.getItem(a)){' +
+      '$("<scr"+"ipt>"+localStorage.getItem(a)+"</scr"+"ipt>").attr({type:"text/javascript",id:i}).appendTo($("head").remove("#"+i));'+
+      '}' + //end of if
+      'else{' +
+      'localStorage.clear();flag=true;' +
+      'for(let q=0;q<scriptsshow.length;q++){' +
+      'let b=scriptsshow[q];' +
+      'axios.get(b).' +
+      'then(function(data){localStorage.setItem(b,data.data);})' +
+      '}break' + //end of for
+      '}' + //end of else
+      '}' + //end of for
+      'if(flag){'+
+      'LazyLoad.js(scriptsshow,function(){});'+
+      '}'+//end of ifflag
+      '})()'+
+      '</script>'+
               "{% endblock %}";
               return _html;
 }

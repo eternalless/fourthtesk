@@ -6,6 +6,7 @@ const controllerInit = {
             _.get('/index/update',index.update())
             _.get('/index/star',index.star())
             _.get('/index/muzhi',index.muzhi())
+            _.get('/index/adv',index.adv())
         }))
     }
 }
